@@ -1,0 +1,52 @@
+:root{--sky:#6DB3F2;--mid:#1D5FA8;--navy:#0B2545;--paper:#F1F4F8;--ink:#0E1A2B;
+  --f-d:"Syne","Avenir Next",system-ui,sans-serif;--f-b:"Karla","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#000}
+body{margin:0;background:#000;color:var(--paper);font:400 1.1rem/1.65 var(--f-b);overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:4px}
+
+/* Banner: pinned for the first stretch of scroll; --p (0 to 1) is set by script */
+.intro{height:230vh;position:relative}
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;--p:0}
+.waves{position:absolute;inset:0;width:100%;height:100%}
+.waves ellipse{fill:url(#fade);transform-box:fill-box;transform-origin:center;
+  animation:pulse var(--t,8s) ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes pulse{0%,100%{opacity:.18;transform:scaleY(.5)}50%{opacity:.85;transform:scaleY(1.5)}}
+@media(prefers-reduced-motion:reduce){.waves ellipse{animation:none;opacity:.5}}
+
+.title,.menu{grid-area:1/1;position:relative;text-align:center;padding:0 1.25rem}
+.title{pointer-events:none;opacity:max(0,calc(1 - var(--p)*2.2));
+  transform:translateY(calc(var(--p)*-70px)) scale(calc(1 - var(--p)*.12))}
+.title h1{font:800 clamp(3rem,10vw,8rem)/.95 var(--f-d);letter-spacing:-.03em;margin:0 0 1rem}
+.title p{font-size:clamp(1.05rem,2.2vw,1.5rem);color:var(--sky);margin:0}
+
+.menu{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-content:center;pointer-events:none;
+  opacity:max(0,calc((var(--p) - .45)*2.4));transform:translateY(calc((1 - var(--p))*50px))}
+.menu.on{pointer-events:auto}
+.menu a{font:700 clamp(1.1rem,2.4vw,1.5rem) var(--f-d);text-decoration:none;padding:.8em 1.6em;
+  border:2px solid var(--sky);border-radius:999px;transition:background .2s,color .2s}
+.menu a:hover,.menu a:focus-visible{background:var(--sky);color:#000}
+
+/* Layered squares: the card is the front square; ::after and ::before are the two behind it */
+.layer{position:relative;isolation:isolate;background:var(--paper);color:var(--ink);
+  width:min(100% - 3.5rem,38rem);margin:7rem clamp(1.75rem,12vw,14rem) 8rem auto;
+  padding:clamp(1.75rem,5vw,3rem);display:flex;flex-direction:column;justify-content:center;--s:1}
+.layer.flip{margin:7rem auto 8rem clamp(1.75rem,12vw,14rem);--s:-1}
+@media(min-width:48rem){.layer{aspect-ratio:1}}
+.layer::before,.layer::after{content:"";position:absolute;z-index:-1}
+.layer::after{inset:0;background:var(--mid);transform:translate(calc(var(--s)*1.9rem),1.9rem)}
+.layer::before{inset:-2.6rem;background:var(--navy);z-index:-2;transform:translate(calc(var(--s)*-1.3rem),-1.1rem)}
+.layer h2{font:800 clamp(2rem,5vw,3rem)/1 var(--f-d);letter-spacing:-.02em;margin:0 0 1rem}
+.layer p{margin:0 0 1rem}
+.layer ul{list-style:none;margin:0;padding:0}
+.layer li{border-top:1px solid rgba(14,26,43,.25);padding:.8rem 0}
+.layer li:last-child{border-bottom:1px solid rgba(14,26,43,.25)}
+.layer li a{font:700 1.25rem var(--f-d);text-decoration:none}
+.layer li a:hover{color:var(--mid)}
+.layer li span{display:block;font-size:.95rem;color:#43546a}
+.layer .btn{align-self:flex-start;background:var(--ink);color:var(--paper);text-decoration:none;
+  font:700 1rem var(--f-d);padding:.8em 1.5em;border-radius:999px}
+.layer .btn:hover{background:var(--mid)}
+section{scroll-margin-top:2rem}
+footer{padding:3rem 1.5rem;text-align:center;color:#8aa0b8;font-size:.95rem}
