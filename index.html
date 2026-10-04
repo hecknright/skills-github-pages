@@ -3,19 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Michael Friel | Backend & Automation Engineer</title>
-<meta name="description" content="Michael Friel, a backend and automation engineer in Oxnard, California. Work written up as postmortems.">
+<title>Michael Friel | Site Reliability Engineer</title>
+<meta name="description" content="Michael Friel, a site reliability engineer in Oxnard, California. Work written up as postmortems.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 <header class="intro">
+  <canvas class="mesh" aria-hidden="true"></canvas>
   <svg class="traces" viewBox="0 0 1000 800" preserveAspectRatio="none" aria-hidden="true"></svg>
+  <div class="orbs" aria-hidden="true">
+    <i class="orb" style="left:17%;top:36%;--d:16vmin;--k:16"></i>
+    <i class="orb" style="left:78%;top:66%;--d:22vmin;--k:26"></i>
+    <i class="orb" style="left:88%;top:24%;--d:9vmin;--k:9"></i>
+    <i class="orb" style="left:8%;top:80%;--d:11vmin;--k:12"></i>
+    <i class="orb" style="left:64%;top:14%;--d:7vmin;--k:7"></i>
+  </div>
   <div class="title">
     <h1>Michael Friel</h1>
-    <p class="role">Backend &amp; Automation Engineer</p>
+    <p class="role">Site Reliability Engineer &middot; Backend &amp; Automation</p>
     <p class="status">all systems nominal &middot; Oxnard, CA</p>
   </div>
   <div class="cue" aria-hidden="true">scroll to run the pipeline</div>
@@ -32,18 +40,18 @@
   <section class="stage" id="source">
     <p class="label">Stage 1 &middot; Source</p>
     <h2>About</h2>
-    <p>I'm a production support and platform engineer who leans toward backend code and automation. I'm the Lead Production Support Engineer (DevOps &amp; Platform) at One Legal (InfoTrack), and before that I was a software engineer at Honeywell.</p>
-    <p>My favorite work is turning things people do by hand into pipelines, runbooks, and small services that keep production healthy.</p>
+    <p>I'm a site reliability engineer with 5+ years building and automating production systems in Python, C#/.NET, and SQL Server on Azure. At One Legal (InfoTrack) I lead on-call for a court e-filing platform that law firms across California, Texas, Illinois, and New York rely on, held to 99.95% uptime.</p>
+    <p>Before that I was a software engineer at Honeywell Voice, building apps for a warehouse platform used by more than a million workers a day. My favorite work is turning manual, failure-prone processes into automation.</p>
   </section>
 
   <section class="stage" id="build">
     <p class="label">Stage 2 &middot; Build</p>
     <h2>Stack</h2>
     <dl class="grid">
-      <div><dt>LANGUAGES</dt><dd>Python, C# / .NET, SQL, JavaScript, TypeScript (learning)</dd></div>
-      <div><dt>DATA</dt><dd>SQL Server, PostgreSQL, Redis</dd></div>
-      <div><dt>CLOUD &amp; INFRA</dt><dd>Azure, Azure DevOps, Terraform, GitHub Actions</dd></div>
-      <div><dt>WEB</dt><dd>FastAPI, Razor views, Kendo</dd></div>
+      <div><dt>RELIABILITY</dt><dd>On-call leadership, incident response, postmortems, runbooks, KQL, Azure Monitor, Grafana</dd></div>
+      <div><dt>CLOUD &amp; AUTOMATION</dt><dd>Azure (Functions, Container Apps, Key Vault, AKS), Azure DevOps, Azure CLI, PowerShell, GitHub Actions, Octopus Deploy, Jenkins, Terraform, Docker</dd></div>
+      <div><dt>LANGUAGES &amp; AI</dt><dd>Python, C#, T-SQL, JavaScript, TypeScript, Bash, Claude Code, MCP</dd></div>
+      <div><dt>FRAMEWORKS &amp; DATA</dt><dd>ASP.NET Web API, .NET Core, .NET MAUI, Xamarin, FastAPI, React, React Native, Entity Framework, SQL Server, PostgreSQL, CosmosDB, Oracle</dd></div>
     </dl>
   </section>
 
@@ -52,30 +60,39 @@
     <h2>Work, written as postmortems</h2>
     <p>Each project is told the way I'd write up an incident: what was going on, what I did, and how it ended.</p>
 
-    <details>
-      <summary><span class="id">PM-01</span>Redis latency under heavy production load</summary>
+    <details open>
+      <summary><span class="id">PM-01</span>Slow incident response on a deadline-driven platform</summary>
       <div class="pm">
-        <div><h3>Context</h3><p>Production was under heavy load, and Redis latency was one of the numbers that mattered most.</p></div>
-        <div><h3>What I did</h3><p>Monitored latency across the pre-made Redis shards spread over company nodes while the load was at its peak.</p></div>
-        <div><h3>Outcome</h3><p class="todo">[Add what you caught, changed, or learned.]</p></div>
+        <div><h3>Context</h3><p>An e-filing platform held to a 99.95% uptime SLA, with filing deadlines that land at midnight.</p></div>
+        <div><h3>What I did</h3><p>Built monitoring and alerting automation with Python, Azure Functions, and runbooks.</p></div>
+        <div><h3>Outcome</h3><p>Incident response time dropped from 10 minutes to 2. Missed-deadline incidents that required court declarations fell from 4&ndash;5 a week to roughly 1 a quarter.</p></div>
       </div>
     </details>
 
     <details>
-      <summary><span class="id">PM-02</span>Automating operations in Azure DevOps</summary>
+      <summary><span class="id">PM-02</span>Outstanding orders and uncollected fees</summary>
       <div class="pm">
-        <div><h3>Context</h3><p>Operational tasks that were being handled by hand.</p></div>
-        <div><h3>What I did</h3><p>Built automation pipelines, runbooks, and function apps in Azure DevOps.</p></div>
-        <div><h3>Outcome</h3><p class="todo">[Add time saved, errors avoided, or incidents prevented.]</p></div>
+        <div><h3>Context</h3><p>Outstanding orders and uncollected fees needed to be reconciled.</p></div>
+        <div><h3>What I did</h3><p>Built automated reconciliation on Azure DevOps with Datadog monitoring.</p></div>
+        <div><h3>Outcome</h3><p>Recovered $250K+ and cut production failures by 72%, contributing to the company's highest-grossing year and first $1M revenue week.</p></div>
       </div>
     </details>
 
     <details>
-      <summary><span class="id">PM-03</span>Test suites for new MCP servers</summary>
+      <summary><span class="id">PM-03</span>Three-hour daily Finance reports</summary>
       <div class="pm">
-        <div><h3>Context</h3><p>Brand-new MCP servers at work needed test coverage.</p></div>
-        <div><h3>What I did</h3><p>Helped build the test suites for them.</p></div>
-        <div><h3>Outcome</h3><p class="todo">[Add what the tests caught or enabled.]</p></div>
+        <div><h3>Context</h3><p>Several Finance reporting processes each took about 3 hours a day.</p></div>
+        <div><h3>What I did</h3><p>Rebuilt them with multi-stage calculation layers and SQL Server bulk loading automations.</p></div>
+        <div><h3>Outcome</h3><p>Average run time dropped to about 5 minutes.</p></div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="id">PM-04</span>Slow SQL Server queries in Production</summary>
+      <div class="pm">
+        <div><h3>Context</h3><p>Production SQL Server queries were spending too long waiting.</p></div>
+        <div><h3>What I did</h3><p>Analyzed waits with Database Performance Analyzer (DPA) and added targeted indexes.</p></div>
+        <div><h3>Outcome</h3><p>Query wait times fell by more than 60%.</p></div>
       </div>
     </details>
   </section>
@@ -85,8 +102,8 @@
     <h2>Get in touch</h2>
     <p>If you have a project, a question, or a role that needs an automation person, I'd like to hear about it.</p>
     <ul class="links">
-      <li><a href="mailto:you@example.com">you@example.com</a></li>
-      <li><a href="https://github.com/your-username">github.com/your-username</a></li>
+      <li><a href="mailto:mike.p.friel@gmail.com">mike.p.friel@gmail.com</a></li>
+      <li><a href="https://www.linkedin.com/in/mike-friel-25407898">linkedin.com/in/mike-friel-25407898</a></li>
       <li><a href="resume.pdf">resume.pdf</a></li>
     </ul>
   </section>
@@ -96,20 +113,73 @@
 <pre class="log" aria-hidden="true"></pre>
 
 <script>
-// Idle telemetry traces in the banner
-const NS="http://www.w3.org/2000/svg",svg=document.querySelector('.traces');
-for(let i=0;i<6;i++){
-  const y=150+i*100,a=180+(i*331)%560,d=`M0 ${y}H${a}l6 -24 8 44 6 -20H1000`;
-  ['base','run'].forEach(c=>{
-    const p=document.createElementNS(NS,'path');
-    p.setAttribute('d',d);p.setAttribute('pathLength',1000);p.setAttribute('class',c);
-    if(c==='run'){p.style.setProperty('--t',(9+i*1.7)+'s');p.style.setProperty('--d',-(i*2.3)+'s')}
-    svg.append(p);
-  });
+// Idle telemetry traces: light travelling through tubes, passing behind panels
+const NS="http://www.w3.org/2000/svg",svg=document.querySelector('.traces'),
+  still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).append(e);return e};
+const defs=mk('defs',{});
+['H110l240 70H620l90 -40H1000','H300l120 -60H520l260 80H1000','H200l90 50H430l320 -90H1000',
+ 'H60l180 -50H480l140 70H760l80 -30H1000','H250l200 90H700l120 -60H1000','H160l110 -50H560l280 60H1000'].forEach((s,i)=>{
+  const y=110+i*108,d='M0 '+y+s,
+    g=mk('linearGradient',{id:'g'+i,gradientUnits:'userSpaceOnUse',x1:0,y1:0,x2:380,y2:0},defs);
+  [[0,0,'#4F9BE0'],[.3,.55,'#6DB3F2'],[.5,1,'#CFE8FF'],[.7,.55,'#6DB3F2'],[1,0,'#4F9BE0']]
+    .forEach(([o,a,c])=>mk('stop',{offset:o,'stop-opacity':a,'stop-color':c},g));
+  if(still)g.setAttribute('gradientTransform','translate(300 0)');
+  else mk('animateTransform',{attributeName:'gradientTransform',type:'translate',from:'-380 0',to:'1000 0',
+    dur:(11+i*1.6)+'s',begin:'-'+(i*2.7)+'s',repeatCount:'indefinite'},g);
+  mk('path',{d,class:'base'});
+  mk('path',{d,class:'run',style:'stroke:url(#g'+i+')'});
+});
+// Cursor-reactive mesh: points push away from the pointer and light up near it
+const cv=document.querySelector('.mesh'),cx=cv.getContext('2d'),intro=document.querySelector('.intro');
+const GAP=44,R=180;let w,h,P=[],cols,rows,mx=-9e3,my=-9e3,on=false;
+function build(){
+  const r=intro.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+  w=r.width;h=r.height;cv.width=w*d;cv.height=h*d;cx.setTransform(d,0,0,d,0,0);
+  cols=Math.ceil(w/GAP)+1;rows=Math.ceil(h/GAP)+1;P=[];
+  for(let j=0;j<rows;j++)for(let i=0;i<cols;i++)P.push({ox:i*GAP,oy:j*GAP,x:i*GAP,y:j*GAP,g:0});
+  draw();
 }
+function seg(a,b){
+  cx.strokeStyle='rgba(109,179,242,'+(.1+.55*(a.g+b.g)/2).toFixed(3)+')';
+  cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();
+}
+function draw(){
+  cx.clearRect(0,0,w,h);cx.lineWidth=1;
+  for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+    const p=P[j*cols+i];
+    if(i<cols-1)seg(p,P[j*cols+i+1]);
+    if(j<rows-1)seg(p,P[(j+1)*cols+i]);
+    if(p.g>.08){cx.fillStyle='rgba(207,232,255,'+p.g.toFixed(2)+')';cx.beginPath();cx.arc(p.x,p.y,1.7,0,6.283);cx.fill()}
+  }
+}
+function step(){
+  let moving=false;
+  for(const p of P){
+    let tx=p.ox,ty=p.oy,g=0;
+    const dx=p.ox-mx,dy=p.oy-my,d=Math.hypot(dx,dy);
+    if(d<R){const f=1-d/R;g=f;const k=f*f*46/(d||1);tx+=dx*k;ty+=dy*k}
+    p.x+=(tx-p.x)*.16;p.y+=(ty-p.y)*.16;p.g+=(g-p.g)*.16;
+    if(Math.abs(tx-p.x)>.05||Math.abs(ty-p.y)>.05||Math.abs(g-p.g)>.01)moving=true;
+  }
+  draw();on=moving;if(moving)requestAnimationFrame(step);
+}
+const kick=()=>{if(!on){on=true;requestAnimationFrame(step)}};
+intro.addEventListener('pointermove',e=>{
+  if(still)return;
+  const r=intro.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;
+  intro.style.setProperty('--px',(e.clientX/innerWidth-.5)*2);
+  intro.style.setProperty('--py',(e.clientY/innerHeight-.5)*2);
+  kick();
+});
+intro.addEventListener('pointerleave',()=>{
+  if(still)return;
+  mx=my=-9e3;intro.style.setProperty('--px',0);intro.style.setProperty('--py',0);kick();
+});
+addEventListener('resize',build);build();
 // Pipeline rail and build log follow the section in view
 const stages=[...document.querySelectorAll('.stage')],chips=[...document.querySelectorAll('.rail a')],log=document.querySelector('.log');
-const names=['source','build','test','deploy'],msg=['profile loaded','stack resolved','3 postmortems reviewed','ready to connect'];
+const names=['source','build','test','deploy'],msg=['profile loaded','stack resolved','4 postmortems reviewed','ready to connect'];
 let cur=-2;
 function set(i){
   if(i===cur)return;cur=i;
