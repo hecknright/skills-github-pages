@@ -14,12 +14,24 @@
 <header class="intro">
   <canvas class="mesh" aria-hidden="true"></canvas>
   <svg class="traces" viewBox="0 0 1000 800" preserveAspectRatio="none" aria-hidden="true"></svg>
-  <div class="orbs" aria-hidden="true">
-    <i class="orb" style="left:17%;top:36%;--d:16vmin;--k:16"></i>
-    <i class="orb" style="left:78%;top:66%;--d:22vmin;--k:26"></i>
-    <i class="orb" style="left:88%;top:24%;--d:9vmin;--k:9"></i>
-    <i class="orb" style="left:8%;top:80%;--d:11vmin;--k:12"></i>
-    <i class="orb" style="left:64%;top:14%;--d:7vmin;--k:7"></i>
+  <div class="nodes" aria-hidden="true">
+    <i class="node ring" style="left:20%;top:40.75%;--s:22px"></i>
+    <i class="node ring" style="left:78%;top:29.75%;--s:16px"></i>
+    <i class="node ring" style="left:82%;top:71.5%;--s:26px"></i>
+    <i class="node ring" style="left:16%;top:81.25%;--s:20px"></i>
+    <i class="node dot" style="left:11%;top:13.75%"></i>
+    <i class="node dot" style="left:6%;top:54.25%"></i>
+    <i class="node dot" style="left:25%;top:67.75%"></i>
+    <i class="node dot" style="left:24%;top:48%"></i>
+    <i class="node dot" style="left:84%;top:53%"></i>
+    <i class="node dot" style="left:71%;top:17.5%"></i>
+    <i class="node dot" style="left:84%;top:82.5%"></i>
+    <i class="node dot" style="left:75%;top:35.75%"></i>
+    <i class="node dot" style="left:35%;top:22.5%"></i>
+    <span class="nlabel l" style="left:20%;top:40.75%">uptime 99.95%</span>
+    <span class="nlabel r" style="left:78%;top:29.75%">400+ services</span>
+    <span class="nlabel r" style="left:82%;top:71.5%">700+ deploys</span>
+    <span class="nlabel l" style="left:16%;top:81.25%">on-call lead</span>
   </div>
   <div class="title">
     <h1>Michael Friel</h1>
@@ -40,8 +52,13 @@
   <section class="stage" id="source">
     <p class="label">Stage 1 &middot; Source</p>
     <h2>About</h2>
+    <div class="about">
+      <div class="copy">
     <p>I'm a site reliability engineer with 5+ years building and automating production systems in Python, C#/.NET, and SQL Server on Azure. At One Legal (InfoTrack) I lead on-call for a court e-filing platform that law firms across California, Texas, Illinois, and New York rely on, held to 99.95% uptime.</p>
     <p>Before that I was a software engineer at Honeywell Voice, building apps for a warehouse platform used by more than a million workers a day. My favorite work is turning manual, failure-prone processes into automation.</p>
+      </div>
+      <img class="photo" src="https://github.com/hecknright.png?size=336" width="168" height="168" alt="Michael Friel" loading="lazy" decoding="async">
+    </div>
   </section>
 
   <section class="stage" id="build">
@@ -101,11 +118,12 @@
     <p class="label">Stage 4 &middot; Deploy</p>
     <h2>Get in touch</h2>
     <p>If you have a project, a question, or a role that needs an automation person, I'd like to hear about it.</p>
-    <ul class="links">
-      <li><a href="mailto:mike.p.friel@gmail.com">mike.p.friel@gmail.com</a></li>
-      <li><a href="https://www.linkedin.com/in/mike-friel-25407898">linkedin.com/in/mike-friel-25407898</a></li>
-      <li><a href="resume.pdf">resume.pdf</a></li>
-    </ul>
+    <p class="prompt">&gt; deploy --target contact</p>
+    <div class="tiles">
+      <a class="tile" href="mailto:mike.p.friel@gmail.com"><span class="k">email</span><span class="v">mike.p.friel@gmail.com</span><span class="go" aria-hidden="true">&rarr;</span></a>
+      <a class="tile" href="https://www.linkedin.com/in/mike-friel-25407898"><span class="k">linkedin</span><span class="v">in/mike-friel-25407898</span><span class="go" aria-hidden="true">&rarr;</span></a>
+      <a class="tile" href="https://github.com/hecknright"><span class="k">github</span><span class="v">hecknright</span><span class="go" aria-hidden="true">&rarr;</span></a>
+    </div>
   </section>
 </main>
 
@@ -128,6 +146,7 @@ const defs=mk('defs',{});
   else mk('animateTransform',{attributeName:'gradientTransform',type:'translate',from:'-380 0',to:'1000 0',
     dur:(11+i*1.6)+'s',begin:'-'+(i*2.7)+'s',repeatCount:'indefinite'},g);
   mk('path',{d,class:'base'});
+  mk('path',{d,class:'glow',style:'stroke:url(#g'+i+')'});
   mk('path',{d,class:'run',style:'stroke:url(#g'+i+')'});
 });
 // Cursor-reactive dot field. Dots are drawn once; each frame only the dots near the pointer are updated and redrawn.
