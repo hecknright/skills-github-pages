@@ -77,48 +77,55 @@
     <h2>Work, written as postmortems</h2>
     <p>Each project is told the way I'd write up an incident: what was going on, what I did, and how it ended.</p>
 
-    <details open>
+    <div class="bx"><details open>
       <summary><span class="id">PM-01</span>Slow incident response on a deadline-driven platform</summary>
       <div class="pm">
         <div><h3>Context</h3><p>An e-filing platform held to a 99.95% uptime SLA, with filing deadlines that land at midnight.</p></div>
         <div><h3>What I did</h3><p>Built monitoring and alerting automation with Python, Azure Functions, and runbooks.</p></div>
         <div><h3>Outcome</h3><p>Incident response time dropped from 10 minutes to 2. Missed-deadline incidents that required court declarations fell from 4&ndash;5 a week to roughly 1 a quarter.</p></div>
       </div>
-    </details>
+    </details></div>
 
-    <details>
+    <div class="bx"><details>
       <summary><span class="id">PM-02</span>Outstanding orders and uncollected fees</summary>
       <div class="pm">
         <div><h3>Context</h3><p>Outstanding orders and uncollected fees needed to be reconciled.</p></div>
         <div><h3>What I did</h3><p>Built automated reconciliation on Azure DevOps with Datadog monitoring.</p></div>
         <div><h3>Outcome</h3><p>Recovered $250K+ and cut production failures by 72%, contributing to the company's highest-grossing year and first $1M revenue week.</p></div>
       </div>
-    </details>
+    </details></div>
 
-    <details>
+    <div class="bx"><details>
       <summary><span class="id">PM-03</span>Three-hour daily Finance reports</summary>
       <div class="pm">
         <div><h3>Context</h3><p>Several Finance reporting processes each took about 3 hours a day.</p></div>
         <div><h3>What I did</h3><p>Rebuilt them with multi-stage calculation layers and SQL Server bulk loading automations.</p></div>
         <div><h3>Outcome</h3><p>Average run time dropped to about 5 minutes.</p></div>
       </div>
-    </details>
+    </details></div>
 
-    <details>
+    <div class="bx"><details>
       <summary><span class="id">PM-04</span>Slow SQL Server queries in Production</summary>
       <div class="pm">
         <div><h3>Context</h3><p>Production SQL Server queries were spending too long waiting.</p></div>
         <div><h3>What I did</h3><p>Analyzed waits with Database Performance Analyzer (DPA) and added targeted indexes.</p></div>
         <div><h3>Outcome</h3><p>Query wait times fell by more than 60%.</p></div>
       </div>
-    </details>
+    </details></div>
   </section>
 
   <section class="stage" id="contact">
     <p class="label">Stage 4 &middot; Deploy</p>
     <h2>Get in touch</h2>
     <p>If you have a project, a question, or a role that needs an automation person, I'd like to hear about it.</p>
-    <p class="prompt">&gt; deploy --target contact</p>
+    <div class="cta">
+      <div class="term" aria-hidden="true">
+        <p class="t1"><span class="pr">&gt;</span> I want to:</p>
+        <p class="t2"><span id="typed">have you develop an app.</span><i class="caret"></i></p>
+      </div>
+      <a class="cta-btn" id="ctaBtn" href="mailto:mike.p.friel@gmail.com"><span>Contact me</span><b aria-hidden="true">&rarr;</b></a>
+    </div>
+    <p class="prompt">&gt; ls ./links</p>
     <div class="tiles">
       <a class="tile" href="mailto:mike.p.friel@gmail.com"><span class="k">email</span><span class="v">mike.p.friel@gmail.com</span><span class="go" aria-hidden="true">&rarr;</span></a>
       <a class="tile" href="https://www.linkedin.com/in/mike-friel-25407898"><span class="k">linkedin</span><span class="v">in/mike-friel-25407898</span><span class="go" aria-hidden="true">&rarr;</span></a>
@@ -218,6 +225,30 @@ intro.addEventListener('pointerleave',()=>{if(still)return;cX=cY=-9e3;px=py=0;ki
 let rt;addEventListener('resize',()=>{cancelAnimationFrame(rt);rt=requestAnimationFrame(build)});
 build();
 
+// Contact terminal: types out what a visitor might want, then cycles. The button's email subject follows the current phrase.
+const phrases=['have you develop an app.','collaborate on a project.','consult on a build.','debug my code.',
+  'program my widget ideas.','assist with prompt engineering.','build test suites for my infrastructure.','design my idea.'];
+const typed=document.getElementById('typed'),ctaBtn=document.getElementById('ctaBtn'),term=document.querySelector('.term');
+let pi=0,hold=false,seen=false;
+new IntersectionObserver(e=>{seen=e[0].isIntersecting}).observe(term);
+term.addEventListener('pointerenter',()=>hold=true);
+term.addEventListener('pointerleave',()=>hold=false);
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+(async function run(){
+  for(;;){
+    const p=phrases[pi];
+    ctaBtn.href='mailto:mike.p.friel@gmail.com?subject='+encodeURIComponent('I want to: '+p);
+    if(still){typed.textContent=p;await wait(4000)}
+    else{
+      for(let i=1;i<=p.length;i++){typed.textContent=p.slice(0,i);await wait(42)}
+      await wait(1900);
+      while(hold||!seen)await wait(300);
+      for(let i=p.length-1;i>=0;i--){typed.textContent=p.slice(0,i);await wait(20)}
+      await wait(350);
+    }
+    pi=(pi+1)%phrases.length;
+  }
+})();
 // Pipeline rail and build log follow the section in view
 const stages=[...document.querySelectorAll('.stage')],chips=[...document.querySelectorAll('.rail a')],log=document.querySelector('.log');
 const names=['source','build','test','deploy'],msg=['profile loaded','stack resolved','4 postmortems reviewed','ready to connect'];
