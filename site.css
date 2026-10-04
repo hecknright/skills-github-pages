@@ -168,3 +168,18 @@ footer{padding:2rem 1.5rem 4rem;text-align:center;color:var(--mut);font:400 0.95
   clip-path:polygon(0 0,100% 0,calc(100% - var(--tp)) var(--t),var(--t) var(--t),var(--t) calc(100% - var(--tp)),0 100%)}
 .bx:nth-of-type(3)::after{content:"";position:absolute;right:0;bottom:0;width:var(--A);height:var(--A);background:var(--c);pointer-events:none;
   clip-path:polygon(100% 100%,0 100%,var(--tp) calc(100% - var(--t)),calc(100% - var(--t)) calc(100% - var(--t)),calc(100% - var(--t)) var(--tp),100% 0)}
+
+/* Clickable banner labels sit above their lines */
+.nlabel{pointer-events:auto;text-decoration:none;cursor:pointer;padding-bottom:1px;border-bottom:1px dashed rgba(111,143,168,.45);transition:color .2s,border-color .2s}
+.nlabel:hover,.nlabel:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+.nlabel.l{transform:translate(calc(-100% - 22px),calc(-100% - 10px))}
+.nlabel.r{transform:translate(22px,calc(-100% - 10px))}
+@media(max-width:72rem){.nlabel{display:none}}
+.bx,.grid div{scroll-margin-top:6rem}
+
+/* Selected-section flash: brighter, thicker outline plus a glow that fades out */
+.grid div.flash,.bx.flash{--c:#cfe8ff!important;--t:3px!important;animation:flashglow 3s ease-out forwards}
+@keyframes flashglow{
+  0%,55%{filter:drop-shadow(0 0 6px rgba(109,179,242,.95)) drop-shadow(0 0 16px rgba(109,179,242,.6))}
+  100%{filter:drop-shadow(0 0 0 rgba(109,179,242,0)) drop-shadow(0 0 0 rgba(109,179,242,0))}}
+@media(prefers-reduced-motion:reduce){.grid div.flash,.bx.flash{animation:none;filter:drop-shadow(0 0 8px rgba(109,179,242,.9))}}
