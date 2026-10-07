@@ -1,275 +1,366 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Michael Friel | Site Reliability Engineer</title>
-<meta name="description" content="Michael Friel, a site reliability engineer in Oxnard, California. Work written up as postmortems.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Michael Friel | Site Reliability & Backend Engineer</title>
+  <meta name="description"
+    content="Michael Friel, a site reliability engineer in Oxnard, California. Work written up as postmortems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
 </head>
+
 <body>
-<header class="intro">
-  <canvas class="mesh" aria-hidden="true"></canvas>
-  <svg class="traces" viewBox="0 0 1000 800" preserveAspectRatio="none" aria-hidden="true"></svg>
-  <div class="nodes" aria-hidden="true">
-    <i class="node ring" style="left:20%;top:40.75%;--s:22px"></i>
-    <i class="node ring" style="left:78%;top:29.75%;--s:16px"></i>
-    <i class="node ring" style="left:82%;top:71.5%;--s:26px"></i>
-    <i class="node ring" style="left:16%;top:81.25%;--s:20px"></i>
-    <i class="node dot" style="left:11%;top:13.75%"></i>
-    <i class="node dot" style="left:6%;top:54.25%"></i>
-    <i class="node dot" style="left:25%;top:67.75%"></i>
-    <i class="node dot" style="left:24%;top:48%"></i>
-    <i class="node dot" style="left:84%;top:53%"></i>
-    <i class="node dot" style="left:71%;top:17.5%"></i>
-    <i class="node dot" style="left:84%;top:82.5%"></i>
-    <i class="node dot" style="left:75%;top:35.75%"></i>
-    <i class="node dot" style="left:35%;top:22.5%"></i>
-    <a class="nlabel l" href="#pm1" style="left:20%;top:40.75%">uptime 99.95%</a>
-    <a class="nlabel r" href="#stack-reliability" style="left:78%;top:29.75%">400+ services</a>
-    <a class="nlabel r" href="#stack-cloud" style="left:82%;top:71.5%">700+ deploys</a>
-    <a class="nlabel l" href="#pm1" style="left:16%;top:81.25%">on-call lead</a>
-  </div>
-  <div class="title">
-    <h1>Michael Friel</h1>
-    <p class="role">Site Reliability Engineer &middot; Backend &amp; Automation</p>
-    <p class="status">all systems nominal &middot; Oxnard, CA</p>
-  </div>
-  <div class="cue" aria-hidden="true">scroll to run the pipeline</div>
-</header>
-
-<nav class="rail" aria-label="Pipeline">
-  <a href="#source">source</a>
-  <a href="#build">build</a>
-  <a href="#test">test</a>
-  <a href="#contact">deploy</a>
-</nav>
-
-<main>
-  <section class="stage" id="source">
-    <p class="label">Stage 1 &middot; Source</p>
-    <h2>About</h2>
-    <div class="about">
-      <div class="copy">
-    <p>I'm a site reliability engineer with 5+ years building and automating production systems in Python, C#/.NET, and SQL Server on Azure. At One Legal (InfoTrack) I lead on-call for a court e-filing platform that law firms across California, Texas, Illinois, and New York rely on, held to 99.95% uptime.</p>
-    <p>Before that I was a software engineer at Honeywell Voice, building apps for a warehouse platform used by more than a million workers a day. My favorite work is turning manual, failure-prone processes into automation.</p>
-      </div>
-      <img class="photo" src="https://github.com/hecknright.png?size=336" width="168" height="168" alt="Michael Friel" loading="lazy" decoding="async">
+  <header class="intro">
+    <canvas class="mesh" aria-hidden="true"></canvas>
+    <svg class="traces" viewBox="0 0 1000 800" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="nodes" aria-hidden="true">
+      <i class="node ring" style="left:20%;top:40.75%;--s:22px"></i>
+      <i class="node ring" style="left:78%;top:29.75%;--s:16px"></i>
+      <i class="node ring" style="left:82%;top:71.5%;--s:26px"></i>
+      <i class="node ring" style="left:16%;top:81.25%;--s:20px"></i>
+      <i class="node dot" style="left:11%;top:13.75%"></i>
+      <i class="node dot" style="left:6%;top:54.25%"></i>
+      <i class="node dot" style="left:25%;top:67.75%"></i>
+      <i class="node dot" style="left:24%;top:48%"></i>
+      <i class="node dot" style="left:84%;top:53%"></i>
+      <i class="node dot" style="left:71%;top:17.5%"></i>
+      <i class="node dot" style="left:84%;top:82.5%"></i>
+      <i class="node dot" style="left:75%;top:35.75%"></i>
+      <i class="node dot" style="left:35%;top:22.5%"></i>
+      <a class="nlabel l" href="#pm1" style="left:20%;top:40.75%">uptime 99.95%</a>
+      <a class="nlabel r" href="#stack-reliability" style="left:78%;top:29.75%">400+ services</a>
+      <a class="nlabel r" href="#stack-cloud" style="left:82%;top:71.5%">700+ deploys</a>
+      <a class="nlabel l" href="#pm1" style="left:16%;top:81.25%">on-call lead</a>
     </div>
-  </section>
-
-  <section class="stage" id="build">
-    <p class="label">Stage 2 &middot; Build</p>
-    <h2>Stack</h2>
-    <dl class="grid">
-      <div id="stack-reliability"><dt>RELIABILITY</dt><dd>On-call leadership, incident response, postmortems, runbooks, KQL, Azure Monitor, Grafana</dd></div>
-      <div id="stack-cloud"><dt>CLOUD &amp; AUTOMATION</dt><dd>Azure (Functions, Container Apps, Key Vault, AKS), Azure DevOps, Azure CLI, PowerShell, GitHub Actions, Octopus Deploy, Jenkins, Terraform, Docker</dd></div>
-      <div><dt>LANGUAGES &amp; AI</dt><dd>Python, C#, T-SQL, JavaScript, TypeScript, Bash, Claude Code, MCP</dd></div>
-      <div><dt>FRAMEWORKS &amp; DATA</dt><dd>ASP.NET Web API, .NET Core, .NET MAUI, Xamarin, FastAPI, React, React Native, Entity Framework, SQL Server, PostgreSQL, CosmosDB, Oracle</dd></div>
-    </dl>
-  </section>
-
-  <section class="stage" id="test">
-    <p class="label">Stage 3 &middot; Test</p>
-    <h2>Work, written as postmortems</h2>
-    <p>In the spirit of postmortems, each project covers what happened, what was done, and what the outcome was.</p>
-    <p>Many of these are still ongoing, and like any good postmortem, they evolve as I learn more.</p>
-
-    <div class="bx" id="pm1"><details open>
-      <summary><span class="id">PM-01</span>Slow incident response before midnight filing deadlines</summary>
-      <div class="pm">
-        <div><h3>Context</h3><p>An e-filing platform held to a 99.95% uptime SLA, with filing deadlines that land at midnight.</p></div>
-        <div><h3>What I did</h3><p>Built monitoring and alerting automation with Python, Azure Functions, and runbooks.</p></div>
-        <div><h3>Outcome</h3><p>Incident response time dropped from 10 minutes to 2. Missed-deadline incidents that required court declarations fell from 4&ndash;5 a week to roughly 1 a quarter.</p></div>
-      </div>
-    </details></div>
-
-    <div class="bx"><details>
-      <summary><span class="id">PM-02</span>Outstanding orders and uncollected fees</summary>
-      <div class="pm">
-        <div><h3>Context</h3><p>Outstanding orders and uncollected fees needed to be reconciled.</p></div>
-        <div><h3>What I did</h3><p>Built automated reconciliation on Azure DevOps with Datadog monitoring.</p></div>
-        <div><h3>Outcome</h3><p>Recovered $250K+ and cut production failures by 72%, contributing to the company's highest-grossing year and first $1M revenue week.</p></div>
-      </div>
-    </details></div>
-
-    <div class="bx"><details>
-      <summary><span class="id">PM-03</span>Three-hour daily Finance reports</summary>
-      <div class="pm">
-        <div><h3>Context</h3><p>Several Finance reporting processes each took about 3 hours a day.</p></div>
-        <div><h3>What I did</h3><p>Rebuilt them with multi-stage calculation layers and SQL Server bulk loading automations.</p></div>
-        <div><h3>Outcome</h3><p>Average run time dropped to about 5 minutes.</p></div>
-      </div>
-    </details></div>
-
-    <div class="bx"><details>
-      <summary><span class="id">PM-04</span>Slow SQL Server queries in Production</summary>
-      <div class="pm">
-        <div><h3>Context</h3><p>Production SQL Server queries were spending too long waiting.</p></div>
-        <div><h3>What I did</h3><p>Analyzed waits with Database Performance Analyzer (DPA) and added targeted indexes.</p></div>
-        <div><h3>Outcome</h3><p>Query wait times fell by more than 60%.</p></div>
-      </div>
-    </details></div>
-  </section>
-
-  <section class="stage" id="contact">
-    <p class="label">Stage 4 &middot; Deploy</p>
-    <h2>Get in touch</h2>
-    <p>If you have a project, a question, or a role that needs an automation person, I'd like to hear about it.</p>
-    <div class="cta">
-      <div class="term" aria-hidden="true">
-        <p class="t1"><span class="pr">&gt;</span> I want to:</p>
-        <p class="t2"><span id="typed">have you develop an app.</span><i class="caret"></i></p>
-      </div>
-      <a class="cta-btn" id="ctaBtn" href="mailto:mike.p.friel@gmail.com"><span>Contact me</span><b aria-hidden="true">&rarr;</b></a>
+    <div class="title">
+      <h1>Michael Friel</h1>
+      <p class="role">Site Reliability Engineer &middot; Backend &amp; Automation</p>
+      <p class="status">all systems nominal &middot; Oxnard, CA</p>
     </div>
-    <p class="prompt">&gt; ls ./links</p>
-    <div class="tiles">
-      <a class="tile" href="mailto:mike.p.friel@gmail.com"><span class="k">email</span><span class="v">mike.p.friel@gmail.com</span><span class="go" aria-hidden="true">&rarr;</span></a>
-      <a class="tile" href="https://www.linkedin.com/in/mike-friel-25407898"><span class="k">linkedin</span><span class="v">in/mike-friel-25407898</span><span class="go" aria-hidden="true">&rarr;</span></a>
-      <a class="tile" href="https://github.com/hecknright"><span class="k">github</span><span class="v">hecknright</span><span class="go" aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
-</main>
+    <div class="cue" aria-hidden="true">scroll to run the pipeline</div>
+  </header>
 
-<footer>Michael Friel &middot; Oxnard, California</footer>
-<pre class="log" aria-hidden="true"></pre>
+  <nav class="rail" aria-label="Pipeline">
+    <a href="#source">source</a>
+    <a href="#build">build</a>
+    <a href="#test">test</a>
+    <a href="#contact">deploy</a>
+  </nav>
 
-<script>
-// Idle telemetry traces: light travelling through tubes, passing behind panels
-const NS="http://www.w3.org/2000/svg",svg=document.querySelector('.traces'),
-  still=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).append(e);return e};
-const defs=mk('defs',{});
-['H110l240 70H620l90 -40H1000','H300l120 -60H520l260 80H1000','H200l90 50H430l320 -90H1000',
- 'H60l180 -50H480l140 70H760l80 -30H1000','H250l200 90H700l120 -60H1000','H160l110 -50H560l280 60H1000'].forEach((s,i)=>{
-  const y=110+i*108,d='M0 '+y+s,
-    g=mk('linearGradient',{id:'g'+i,gradientUnits:'userSpaceOnUse',x1:0,y1:0,x2:380,y2:0},defs);
-  [[0,0,'#4F9BE0'],[.3,.55,'#6DB3F2'],[.5,1,'#CFE8FF'],[.7,.55,'#6DB3F2'],[1,0,'#4F9BE0']]
-    .forEach(([o,a,c])=>mk('stop',{offset:o,'stop-opacity':a,'stop-color':c},g));
-  if(still)g.setAttribute('gradientTransform','translate(300 0)');
-  else mk('animateTransform',{attributeName:'gradientTransform',type:'translate',from:'-380 0',to:'1000 0',
-    dur:(11+i*1.6)+'s',begin:'-'+(i*2.7)+'s',repeatCount:'indefinite'},g);
-  mk('path',{d,class:'base'});
-  mk('path',{d,class:'glow',style:'stroke:url(#g'+i+')'});
-  mk('path',{d,class:'run',style:'stroke:url(#g'+i+')'});
-});
-// Cursor-reactive dot field. Dots are drawn once; each frame only the dots near the pointer are updated and redrawn.
-const cv=document.querySelector('.mesh'),cx=cv.getContext('2d'),intro=document.querySelector('.intro');
-const GAP=22,R=150,PUSH=34;
-let w,h,cols,rows,ox,oy,x,y,g,flag,act=[],prev=null,on=false,cX=-9e3,cY=-9e3,px=0,py=0;
-function build(){
-  const d=Math.min(devicePixelRatio||1,2),r=intro.getBoundingClientRect();
-  w=r.width;h=r.height;cv.width=w*d;cv.height=h*d;cx.setTransform(d,0,0,d,0,0);
-  cols=Math.ceil(w/GAP)+1;rows=Math.ceil(h/GAP)+1;
-  const n=cols*rows;
-  ox=new Float32Array(n);oy=new Float32Array(n);x=new Float32Array(n);y=new Float32Array(n);
-  g=new Float32Array(n);flag=new Uint8Array(n);act=[];prev=null;
-  for(let j=0,k=0;j<rows;j++)for(let i=0;i<cols;i++,k++){ox[k]=x[k]=i*GAP;oy[k]=y[k]=j*GAP}
-  paint(0,0,w,h);
-}
-// Clear a rect, redraw the resting dots inside it, then draw the moving dots on top
-function paint(x0,y0,x1,y1){
-  cx.clearRect(x0,y0,x1-x0,y1-y0);
-  cx.fillStyle='rgba(109,179,242,.2)';
-  const i0=Math.max(0,Math.ceil(x0/GAP)),i1=Math.min(cols-1,Math.floor(x1/GAP)),
-        j0=Math.max(0,Math.ceil(y0/GAP)),j1=Math.min(rows-1,Math.floor(y1/GAP));
-  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){const k=j*cols+i;if(!flag[k])cx.fillRect(ox[k]-.75,oy[k]-.75,1.5,1.5)}
-  for(let a=0;a<act.length;a++){
-    const k=act[a],s=1.5+2.2*g[k];
-    cx.fillStyle='rgba(173,214,250,'+(.2+.75*g[k]).toFixed(2)+')';
-    cx.fillRect(x[k]-s/2,y[k]-s/2,s,s);
-  }
-}
-function step(){
-  const r=intro.getBoundingClientRect(),mx=cX-r.left,my=cY-r.top;
-  intro.style.setProperty('--px',px);intro.style.setProperty('--py',py);
-  // wake resting dots that the pointer has reached
-  const i0=Math.max(0,Math.floor((mx-R)/GAP)),i1=Math.min(cols-1,Math.ceil((mx+R)/GAP)),
-        j0=Math.max(0,Math.floor((my-R)/GAP)),j1=Math.min(rows-1,Math.ceil((my+R)/GAP));
-  for(let j=j0;j<=j1;j++)for(let i=i0;i<=i1;i++){
-    const k=j*cols+i;
-    if(!flag[k]&&(ox[k]-mx)**2+(oy[k]-my)**2<R*R){flag[k]=1;act.push(k)}
-  }
-  let moving=false,n=0,bx0=1e9,by0=1e9,bx1=-1e9,by1=-1e9;
-  for(let a=0;a<act.length;a++){
-    const k=act[a],dx=ox[k]-mx,dy=oy[k]-my,d2=dx*dx+dy*dy;
-    let tx=ox[k],ty=oy[k],tg=0;
-    if(d2<R*R){const d=Math.sqrt(d2)||1,f=1-d/R;tg=f;tx+=dx/d*f*f*PUSH;ty+=dy/d*f*f*PUSH}
-    x[k]+=(tx-x[k])*.2;y[k]+=(ty-y[k])*.2;g[k]+=(tg-g[k])*.2;
-    const off=Math.abs(tx-x[k])+Math.abs(ty-y[k])+Math.abs(tg-g[k])*10;
-    if(off>.06)moving=true;
-    if(d2>=R*R&&off<.06){x[k]=ox[k];y[k]=oy[k];g[k]=0;flag[k]=0;continue}
-    act[n++]=k;
-    bx0=Math.min(bx0,x[k],ox[k]);bx1=Math.max(bx1,x[k],ox[k]);
-    by0=Math.min(by0,y[k],oy[k]);by1=Math.max(by1,y[k],oy[k]);
-  }
-  act.length=n;
-  const cur=n?[bx0-3,by0-3,bx1+3,by1+3]:null;
-  const u=cur&&prev?[Math.min(cur[0],prev[0]),Math.min(cur[1],prev[1]),Math.max(cur[2],prev[2]),Math.max(cur[3],prev[3])]:(cur||prev);
-  if(u){
-    // snap the rect to the gaps between dots so no dot is ever half-cleared
-    paint(Math.max(0,(Math.floor(u[0]/GAP+.5)-.5)*GAP),Math.max(0,(Math.floor(u[1]/GAP+.5)-.5)*GAP),
-          Math.min(w,(Math.ceil(u[2]/GAP-.5)+.5)*GAP),Math.min(h,(Math.ceil(u[3]/GAP-.5)+.5)*GAP));
-  }
-  prev=cur;on=moving;if(moving)requestAnimationFrame(step);
-}
-const kick=()=>{if(!on){on=true;requestAnimationFrame(step)}};
-intro.addEventListener('pointermove',e=>{
-  if(still)return;
-  cX=e.clientX;cY=e.clientY;px=(cX/innerWidth-.5)*2;py=(cY/innerHeight-.5)*2;kick();
-});
-intro.addEventListener('pointerleave',()=>{if(still)return;cX=cY=-9e3;px=py=0;kick()});
-let rt;addEventListener('resize',()=>{cancelAnimationFrame(rt);rt=requestAnimationFrame(build)});
-build();
+  <main>
+    <section class="stage" id="source">
+      <p class="label">Stage 1 &middot; Source</p>
+      <h2>About</h2>
+      <div class="about">
+        <div class="copy">
+          <p>I'm a site reliability and backend engineer with 5+ years building and automating production systems using
+            Python, C#, SQL, and Azure.</p>
+          <p>At One Legal I'm the tech lead for production engineering on a court e-filing platform that law firms in
+            several states rely on to meet their filing deadlines. I'm also the person other teams go to when they run into
+            production issues.</p>
+          <p>Prior to this I was a software engineer at Honeywell Voice, where I built warehouse management systems and mobile 
+            applications for a platform used by more than a million workers a day. My favorite work is turning manual,
+            failure-prone processes into fully automated solutions.</p>
+        </div>
+      </div>
+      <img class="photo" src="https://github.com/hecknright.png?size=336" width="168" height="168" alt="Michael Friel"
+        loading="lazy" decoding="async">
+      </div>
+    </section>
 
-// Contact terminal: types out what a visitor might want, then cycles. The button's email subject follows the current phrase.
-const phrases=['have you develop an app.','collaborate on a project.','consult on a build.','debug my code.',
-  'program my widget ideas.','assist with prompt engineering.','build test suites for my infrastructure.','design my idea.'];
-const typed=document.getElementById('typed'),ctaBtn=document.getElementById('ctaBtn'),term=document.querySelector('.term');
-let pi=0,hold=false,seen=false;
-new IntersectionObserver(e=>{seen=e[0].isIntersecting}).observe(term);
-term.addEventListener('pointerenter',()=>hold=true);
-term.addEventListener('pointerleave',()=>hold=false);
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
-(async function run(){
-  for(;;){
-    const p=phrases[pi];
-    ctaBtn.href='mailto:mike.p.friel@gmail.com?subject='+encodeURIComponent('I want to: '+p);
-    if(still){typed.textContent=p;await wait(4000)}
-    else{
-      for(let i=1;i<=p.length;i++){typed.textContent=p.slice(0,i);await wait(42)}
-      await wait(1900);
-      while(hold||!seen)await wait(300);
-      for(let i=p.length-1;i>=0;i--){typed.textContent=p.slice(0,i);await wait(20)}
-      await wait(350);
+    <section class="stage" id="build">
+      <p class="label">Stage 2 &middot; Build</p>
+      <h2>Stack</h2>
+      <dl class="grid">
+        <div id="stack-reliability">
+          <dt>RELIABILITY</dt>
+          <dd>On-call leadership, incident response, postmortems, runbooks, KQL, Azure Monitor, Grafana</dd>
+        </div>
+        <div id="stack-cloud">
+          <dt>CLOUD &amp; AUTOMATION</dt>
+          <dd>Azure (Functions, Container Apps, Application Gateway, Front Door, Key Vault, AKS), Azure CLI, PowerShell, GitHub Actions,
+            Octopus Deploy, Terraform, Docker</dd>
+        </div>
+        <div>
+          <dt>LANGUAGES &amp; AI</dt>
+          <dd>Python, C#, T-SQL, JavaScript, TypeScript, Bash, Claude Code, MCP</dd>
+        </div>
+        <div>
+          <dt>FRAMEWORKS &amp; DATA</dt>
+          <dd>ASP.NET Web API, .NET Core, .NET MAUI, Xamarin, FastAPI, React, React Native, Entity Framework, SQL
+            Server, PostgreSQL, CosmosDB, Oracle</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="stage" id="test">
+      <p class="label">Stage 3 &middot; Test</p>
+      <h2>Work Based Projects</h2>
+      <p>All of my projects are listed below, each representing a unique challenge and solution.</p>
+      <p>Many of these are projects are ongoing and continue to evolve over time.</p>
+
+      <div class="bx" id="pm1">
+        <details open>
+          <summary><span class="id">PROJ-01</span>Improve Incident Response Times Through Automation</summary>
+          <div class="pm">
+            <div>
+              <h3>Context</h3>
+              <p>An e-filing platform held to a 99.95% uptime SLA, with filing deadlines everyday up till midnight.
+                Outages caused missed deadlines, court declarations, and lost revenue.</p>
+            </div>
+            <div>
+              <h3>What I did</h3>
+              <p>Built out monitoring, alerting, bug fixes and automation with Python, C#, Azure Functions, and
+                runbooks.</p>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p>Incident response time dropped from 10 minutes to 2. Missed-deadline incidents that required court
+                declarations fell from 25 a quarter to an average of 1 a quarter.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="bx">
+        <details>
+          <summary><span class="id">PROJ-02</span>E2E Financial Reconciliation Through Automated Recovery</summary>
+          <div class="pm">
+            <div>
+              <h3>Context</h3>
+              <p>Outstanding orders and uncollected fees needed to be reconciled. The number of affected orders and the
+                financial impact were known to be significant but not fully quantified.</p>
+            </div>
+            <div>
+              <h3>What I did</h3>
+              <p>Built automated reconciliation using Azure Function Apps and runbooks that automated data collection,
+                processing, audit logging and reporting.
+                This included building out web service automation to interact with Court API's to recover affected orders
+                and collect fees, as well as a reporting dashboard to track progress and results.
+              </p>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p>Recovered $300K+ and cut production failures by 72%, contributing to the company's highest-grossing
+                year and first $1M revenue week.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="bx">
+        <details>
+          <summary><span class="id">PROJ-03</span>Re-invent Finance Reporting</summary>
+          <div class="pm">
+            <div>
+              <h3>Context</h3>
+              <p>Several Finance reporting processes each took about 3 hours a day and used outdated technologies.</p>
+            </div>
+            <div>
+              <h3>What I did</h3>
+              <p>Rebuilt report ingestion with multi-stage calculation layers and SQL Server bulk loading automations to
+                create a more efficient and scalable solution.</p>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p>Average run time dropped to about 5 minutes and has been adopted by several departments across the
+                organization.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="bx">
+        <details>
+          <summary><span class="id">PROJ-04</span>Optimizing Production SQL Server Performance</summary>
+          <div class="pm">
+            <div>
+              <h3>Context</h3>
+              <p>Production SQL Server queries were spending too long waiting, which affected users across our platform.</p>
+            </div>
+            <div>
+              <h3>What I did</h3>
+              <p>Analyzed waits with Database Performance Analyzer (DPA) and added targeted indexes. Identified
+                deadlocks and optimized query execution plans.
+              </p>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p>Query wait times fell by more than 60% and improved overall system responsiveness across all workflows.
+              </p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="stage" id="contact">
+      <p class="label">Stage 4 &middot; Deploy</p>
+      <h2>Get in touch</h2>
+      <p>If you have a project, a question, or a role that needs an automation person, I'd like to hear about it.</p>
+      <div class="cta">
+        <div class="term" aria-hidden="true">
+          <p class="t1"><span class="pr">&gt;</span> I want to:</p>
+          <p class="t2"><span id="typed">have you develop an app.</span><i class="caret"></i></p>
+        </div>
+        <a class="cta-btn" id="ctaBtn" href="mailto:mike.p.friel@gmail.com"><span>Contact me</span><b
+            aria-hidden="true">&rarr;</b></a>
+      </div>
+      <p class="prompt">&gt; ls ./links</p>
+      <div class="tiles">
+        <a class="tile" href="mailto:mike.p.friel@gmail.com"><span class="k">email</span><span
+            class="v">mike.p.friel@gmail.com</span><span class="go" aria-hidden="true">&rarr;</span></a>
+        <a class="tile" href="https://www.linkedin.com/in/mike-friel-25407898"><span class="k">linkedin</span><span
+            class="v">in/mike-friel-25407898</span><span class="go" aria-hidden="true">&rarr;</span></a>
+        <a class="tile" href="https://github.com/hecknright"><span class="k">github</span><span
+            class="v">hecknright</span><span class="go" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>Michael Friel &middot; Oxnard, California</footer>
+  <pre class="log" aria-hidden="true"></pre>
+
+  <script>
+    // Idle telemetry traces: light travelling through tubes, passing behind panels
+    const NS = "http://www.w3.org/2000/svg", svg = document.querySelector('.traces'),
+      still = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).append(e); return e };
+    const defs = mk('defs', {});
+    ['H110l240 70H620l90 -40H1000', 'H300l120 -60H520l260 80H1000', 'H200l90 50H430l320 -90H1000',
+      'H60l180 -50H480l140 70H760l80 -30H1000', 'H250l200 90H700l120 -60H1000', 'H160l110 -50H560l280 60H1000'].forEach((s, i) => {
+        const y = 110 + i * 108, d = 'M0 ' + y + s,
+          g = mk('linearGradient', { id: 'g' + i, gradientUnits: 'userSpaceOnUse', x1: 0, y1: 0, x2: 380, y2: 0 }, defs);
+        [[0, 0, '#4F9BE0'], [.3, .55, '#6DB3F2'], [.5, 1, '#CFE8FF'], [.7, .55, '#6DB3F2'], [1, 0, '#4F9BE0']]
+          .forEach(([o, a, c]) => mk('stop', { offset: o, 'stop-opacity': a, 'stop-color': c }, g));
+        if (still) g.setAttribute('gradientTransform', 'translate(300 0)');
+        else mk('animateTransform', {
+          attributeName: 'gradientTransform', type: 'translate', from: '-380 0', to: '1000 0',
+          dur: (11 + i * 1.6) + 's', begin: '-' + (i * 2.7) + 's', repeatCount: 'indefinite'
+        }, g);
+        mk('path', { d, class: 'base' });
+        mk('path', { d, class: 'glow', style: 'stroke:url(#g' + i + ')' });
+        mk('path', { d, class: 'run', style: 'stroke:url(#g' + i + ')' });
+      });
+    // Cursor-reactive dot field. Dots are drawn once; each frame only the dots near the pointer are updated and redrawn.
+    const cv = document.querySelector('.mesh'), cx = cv.getContext('2d'), intro = document.querySelector('.intro');
+    const GAP = 22, R = 150, PUSH = 34;
+    let w, h, cols, rows, ox, oy, x, y, g, flag, act = [], prev = null, on = false, cX = -9e3, cY = -9e3, px = 0, py = 0;
+    function build() {
+      const d = Math.min(devicePixelRatio || 1, 2), r = intro.getBoundingClientRect();
+      w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; cx.setTransform(d, 0, 0, d, 0, 0);
+      cols = Math.ceil(w / GAP) + 1; rows = Math.ceil(h / GAP) + 1;
+      const n = cols * rows;
+      ox = new Float32Array(n); oy = new Float32Array(n); x = new Float32Array(n); y = new Float32Array(n);
+      g = new Float32Array(n); flag = new Uint8Array(n); act = []; prev = null;
+      for (let j = 0, k = 0; j < rows; j++)for (let i = 0; i < cols; i++, k++) { ox[k] = x[k] = i * GAP; oy[k] = y[k] = j * GAP }
+      paint(0, 0, w, h);
     }
-    pi=(pi+1)%phrases.length;
-  }
-})();
-// Banner labels jump to their section, then that section's outline glows for a few seconds
-function flash(el){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),3100)}
-document.querySelectorAll('.nlabel').forEach(a=>a.addEventListener('click',e=>{
-  const t=document.querySelector(a.getAttribute('href'));if(!t)return;
-  e.preventDefault();
-  t.scrollIntoView({behavior:still?'auto':'smooth',block:'center'});
-  let done=false;const go=()=>{if(!done){done=true;flash(t)}};
-  addEventListener('scrollend',go,{once:true});setTimeout(go,still?0:1400);
-}));
-// Pipeline rail and build log follow the section in view
-const stages=[...document.querySelectorAll('.stage')],chips=[...document.querySelectorAll('.rail a')],log=document.querySelector('.log');
-const names=['source','build','test','deploy'],msg=['profile loaded','stack resolved','4 postmortems reviewed','ready to connect'];
-let cur=-2;
-function set(i){
-  if(i===cur)return;cur=i;
-  chips.forEach((c,j)=>c.dataset.s=j<i?'pass':j===i?'run':'wait');
-  log.textContent=i<0?'':names.slice(0,i+1).map((n,j)=>(j<i?'\u2713 ':'\u25CF ')+n.padEnd(7)+msg[j]).join('\n');
-}
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)set(stages.indexOf(e.target))}),{rootMargin:'-45% 0px -45% 0px'});
-stages.forEach(s=>io.observe(s));io.observe(document.querySelector('.intro'));
-</script>
+    // Clear a rect, redraw the resting dots inside it, then draw the moving dots on top
+    function paint(x0, y0, x1, y1) {
+      cx.clearRect(x0, y0, x1 - x0, y1 - y0);
+      cx.fillStyle = 'rgba(109,179,242,.2)';
+      const i0 = Math.max(0, Math.ceil(x0 / GAP)), i1 = Math.min(cols - 1, Math.floor(x1 / GAP)),
+        j0 = Math.max(0, Math.ceil(y0 / GAP)), j1 = Math.min(rows - 1, Math.floor(y1 / GAP));
+      for (let j = j0; j <= j1; j++)for (let i = i0; i <= i1; i++) { const k = j * cols + i; if (!flag[k]) cx.fillRect(ox[k] - .75, oy[k] - .75, 1.5, 1.5) }
+      for (let a = 0; a < act.length; a++) {
+        const k = act[a], s = 1.5 + 2.2 * g[k];
+        cx.fillStyle = 'rgba(173,214,250,' + (.2 + .75 * g[k]).toFixed(2) + ')';
+        cx.fillRect(x[k] - s / 2, y[k] - s / 2, s, s);
+      }
+    }
+    function step() {
+      const r = intro.getBoundingClientRect(), mx = cX - r.left, my = cY - r.top;
+      intro.style.setProperty('--px', px); intro.style.setProperty('--py', py);
+      // wake resting dots that the pointer has reached
+      const i0 = Math.max(0, Math.floor((mx - R) / GAP)), i1 = Math.min(cols - 1, Math.ceil((mx + R) / GAP)),
+        j0 = Math.max(0, Math.floor((my - R) / GAP)), j1 = Math.min(rows - 1, Math.ceil((my + R) / GAP));
+      for (let j = j0; j <= j1; j++)for (let i = i0; i <= i1; i++) {
+        const k = j * cols + i;
+        if (!flag[k] && (ox[k] - mx) ** 2 + (oy[k] - my) ** 2 < R * R) { flag[k] = 1; act.push(k) }
+      }
+      let moving = false, n = 0, bx0 = 1e9, by0 = 1e9, bx1 = -1e9, by1 = -1e9;
+      for (let a = 0; a < act.length; a++) {
+        const k = act[a], dx = ox[k] - mx, dy = oy[k] - my, d2 = dx * dx + dy * dy;
+        let tx = ox[k], ty = oy[k], tg = 0;
+        if (d2 < R * R) { const d = Math.sqrt(d2) || 1, f = 1 - d / R; tg = f; tx += dx / d * f * f * PUSH; ty += dy / d * f * f * PUSH }
+        x[k] += (tx - x[k]) * .2; y[k] += (ty - y[k]) * .2; g[k] += (tg - g[k]) * .2;
+        const off = Math.abs(tx - x[k]) + Math.abs(ty - y[k]) + Math.abs(tg - g[k]) * 10;
+        if (off > .06) moving = true;
+        if (d2 >= R * R && off < .06) { x[k] = ox[k]; y[k] = oy[k]; g[k] = 0; flag[k] = 0; continue }
+        act[n++] = k;
+        bx0 = Math.min(bx0, x[k], ox[k]); bx1 = Math.max(bx1, x[k], ox[k]);
+        by0 = Math.min(by0, y[k], oy[k]); by1 = Math.max(by1, y[k], oy[k]);
+      }
+      act.length = n;
+      const cur = n ? [bx0 - 3, by0 - 3, bx1 + 3, by1 + 3] : null;
+      const u = cur && prev ? [Math.min(cur[0], prev[0]), Math.min(cur[1], prev[1]), Math.max(cur[2], prev[2]), Math.max(cur[3], prev[3])] : (cur || prev);
+      if (u) {
+        // snap the rect to the gaps between dots so no dot is ever half-cleared
+        paint(Math.max(0, (Math.floor(u[0] / GAP + .5) - .5) * GAP), Math.max(0, (Math.floor(u[1] / GAP + .5) - .5) * GAP),
+          Math.min(w, (Math.ceil(u[2] / GAP - .5) + .5) * GAP), Math.min(h, (Math.ceil(u[3] / GAP - .5) + .5) * GAP));
+      }
+      prev = cur; on = moving; if (moving) requestAnimationFrame(step);
+    }
+    const kick = () => { if (!on) { on = true; requestAnimationFrame(step) } };
+    intro.addEventListener('pointermove', e => {
+      if (still) return;
+      cX = e.clientX; cY = e.clientY; px = (cX / innerWidth - .5) * 2; py = (cY / innerHeight - .5) * 2; kick();
+    });
+    intro.addEventListener('pointerleave', () => { if (still) return; cX = cY = -9e3; px = py = 0; kick() });
+    let rt; addEventListener('resize', () => { cancelAnimationFrame(rt); rt = requestAnimationFrame(build) });
+    build();
+
+    // Contact terminal: types out what a visitor might want, then cycles. The button's email subject follows the current phrase.
+    const phrases = ['have you develop an app.', 'collaborate on a project.', 'consult on a build.', 'debug my code.',
+      'program my widget ideas.', 'assist with prompt engineering.', 'build test suites for my infrastructure.', 'design my idea.'];
+    const typed = document.getElementById('typed'), ctaBtn = document.getElementById('ctaBtn'), term = document.querySelector('.term');
+    let pi = 0, hold = false, seen = false;
+    new IntersectionObserver(e => { seen = e[0].isIntersecting }).observe(term);
+    term.addEventListener('pointerenter', () => hold = true);
+    term.addEventListener('pointerleave', () => hold = false);
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    (async function run() {
+      for (; ;) {
+        const p = phrases[pi];
+        ctaBtn.href = 'mailto:mike.p.friel@gmail.com?subject=' + encodeURIComponent('I want to: ' + p);
+        if (still) { typed.textContent = p; await wait(4000) }
+        else {
+          for (let i = 1; i <= p.length; i++) { typed.textContent = p.slice(0, i); await wait(42) }
+          await wait(1900);
+          while (hold || !seen) await wait(300);
+          for (let i = p.length - 1; i >= 0; i--) { typed.textContent = p.slice(0, i); await wait(20) }
+          await wait(350);
+        }
+        pi = (pi + 1) % phrases.length;
+      }
+    })();
+    // Banner labels jump to their section, then that section's outline glows for a few seconds
+    function flash(el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 3100) }
+    document.querySelectorAll('.nlabel').forEach(a => a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href')); if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'center' });
+      let done = false; const go = () => { if (!done) { done = true; flash(t) } };
+      addEventListener('scrollend', go, { once: true }); setTimeout(go, still ? 0 : 1400);
+    }));
+    // Pipeline rail and build log follow the section in view
+    const stages = [...document.querySelectorAll('.stage')], chips = [...document.querySelectorAll('.rail a')], log = document.querySelector('.log');
+    const names = ['source', 'build', 'test', 'deploy'], msg = ['profile loaded', 'stack resolved', '4 projects reviewed', 'ready to connect'];
+    let cur = -2;
+    function set(i) {
+      if (i === cur) return; cur = i;
+      chips.forEach((c, j) => c.dataset.s = j < i ? 'pass' : j === i ? 'run' : 'wait');
+      log.textContent = i < 0 ? '' : names.slice(0, i + 1).map((n, j) => (j < i ? '\u2713 ' : '\u25CF ') + n.padEnd(7) + msg[j]).join('\n');
+    }
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) set(stages.indexOf(e.target)) }), { rootMargin: '-45% 0px -45% 0px' });
+    stages.forEach(s => io.observe(s)); io.observe(document.querySelector('.intro'));
+  </script>
 </body>
+
 </html>

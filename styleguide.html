@@ -1,106 +1,182 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Slackwater CSS | Style guide</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="slackwater.css">
-<style>
-.swatches{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}
-.sw{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
-.sw i{display:block;height:5.5rem}
-.sw span{display:block;padding:var(--s2) var(--s3);font-size:.9rem}
-.sw b{display:block}
-.demo{display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center}
-.scale>*{margin-bottom:var(--s3)}
-.spec{display:grid;gap:var(--s5)}
-pre{background:var(--channel);color:var(--foam);padding:var(--s3);border-radius:var(--r-md);overflow-x:auto;font-size:.9rem;margin:var(--s3) 0 0}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slackwater CSS | Style guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="slackwater.css">
+  <style>
+    .swatches {
+      display: grid;
+      gap: var(--s3);
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr))
+    }
+
+    .sw {
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface)
+    }
+
+    .sw i {
+      display: block;
+      height: 5.5rem
+    }
+
+    .sw span {
+      display: block;
+      padding: var(--s2) var(--s3);
+      font-size: .9rem
+    }
+
+    .sw b {
+      display: block
+    }
+
+    .demo {
+      display: flex;
+      gap: var(--s3);
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .scale>* {
+      margin-bottom: var(--s3)
+    }
+
+    .spec {
+      display: grid;
+      gap: var(--s5)
+    }
+
+    pre {
+      background: var(--channel);
+      color: var(--foam);
+      padding: var(--s3);
+      border-radius: var(--r-md);
+      overflow-x: auto;
+      font-size: .9rem;
+      margin: var(--s3) 0 0
+    }
+  </style>
 </head>
+
 <body>
-<header class="wrap nav">
-  <a class="brand" href="index.html">Michael Friel</a>
-  <nav aria-label="Main"><ul>
-    <li><a href="index.html#work">Work</a></li>
-    <li><a href="styleguide.html" aria-current="page">Slackwater CSS</a></li>
-  </ul></nav>
-</header>
+  <header class="wrap nav">
+    <a class="brand" href="index.html">Michael Friel</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="styleguide.html" aria-current="page">Slackwater CSS</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<main class="wrap spec">
-  <section class="section stack" style="padding-bottom:0">
-    <h1 style="font-size:clamp(3rem,9vw,6.5rem)">Slackwater</h1>
-    <p class="muted" style="font-size:1.3rem">A small CSS design system built on one idea: the calm moment when the tide turns. One stylesheet, no framework, light and dark themes included.</p>
-    <pre>&lt;link rel="stylesheet" href="slackwater.css"&gt;</pre>
-  </section>
+  <main class="wrap spec">
+    <section class="section stack" style="padding-bottom:0">
+      <h1 style="font-size:clamp(3rem,9vw,6.5rem)">Slackwater</h1>
+      <p class="muted" style="font-size:1.3rem">A small CSS design system built on one idea: the calm moment when the
+        tide turns. One stylesheet, no framework, light and dark themes included.</p>
+      <pre>&lt;link rel="stylesheet" href="slackwater.css"&gt;</pre>
+    </section>
 
-  <section class="stack">
-    <h2>Color</h2>
-    <p>Six named tokens do the work. Everything else is derived with <code>color-mix</code> or the theme variables (<code>--bg</code>, <code>--surface</code>, <code>--ink</code>, <code>--muted</code>, <code>--accent</code>).</p>
-    <div class="swatches">
-      <div class="sw"><i style="background:var(--fog)"></i><span><b>Fog</b>#E4EBE8</span></div>
-      <div class="sw"><i style="background:var(--foam)"></i><span><b>Foam</b>#F5F8F6</span></div>
-      <div class="sw"><i style="background:var(--channel)"></i><span><b>Channel</b>#12353F</span></div>
-      <div class="sw"><i style="background:var(--kelp)"></i><span><b>Kelp</b>#2C6B58</span></div>
-      <div class="sw"><i style="background:var(--tide)"></i><span><b>Tide</b>#4F8A9B</span></div>
-      <div class="sw"><i style="background:var(--beacon)"></i><span><b>Beacon</b>#EDB82E</span></div>
-    </div>
-  </section>
-
-  <section class="stack scale">
-    <h2>Type</h2>
-    <p>Bricolage Grotesque for headings, Figtree for reading. Headings run tight; body text keeps a 62 character measure.</p>
-    <h1 style="font-size:clamp(2.5rem,7vw,4.5rem)">Heading one</h1>
-    <h2>Heading two</h2>
-    <h3>Heading three</h3>
-    <p>Body text sits at 1.0625rem with a 1.6 line height. <a href="#">Links</a> keep a thin underline that thickens on hover.</p>
-  </section>
-
-  <section class="stack">
-    <h2>Buttons and tags</h2>
-    <div class="demo">
-      <button class="btn">Save changes</button>
-      <button class="btn btn--ghost">Cancel</button>
-      <button class="btn" disabled>Unavailable</button>
-    </div>
-    <div class="demo">
-      <span class="tag">Default</span>
-      <span class="tag tag--live">Live</span>
-    </div>
-  </section>
-
-  <section class="stack">
-    <h2>Forms</h2>
-    <div class="panel" style="max-width:32rem">
-      <div class="field">
-        <label for="email">Email address</label>
-        <input class="input" id="email" type="email" placeholder="you@example.com">
-        <span class="hint">We only use this to reply to you.</span>
+    <section class="stack">
+      <h2>Color</h2>
+      <p>Six named tokens do the work. Everything else is derived with <code>color-mix</code> or the theme variables
+        (<code>--bg</code>, <code>--surface</code>, <code>--ink</code>, <code>--muted</code>, <code>--accent</code>).
+      </p>
+      <div class="swatches">
+        <div class="sw"><i style="background:var(--fog)"></i><span><b>Fog</b>#E4EBE8</span></div>
+        <div class="sw"><i style="background:var(--foam)"></i><span><b>Foam</b>#F5F8F6</span></div>
+        <div class="sw"><i style="background:var(--channel)"></i><span><b>Channel</b>#12353F</span></div>
+        <div class="sw"><i style="background:var(--kelp)"></i><span><b>Kelp</b>#2C6B58</span></div>
+        <div class="sw"><i style="background:var(--tide)"></i><span><b>Tide</b>#4F8A9B</span></div>
+        <div class="sw"><i style="background:var(--beacon)"></i><span><b>Beacon</b>#EDB82E</span></div>
       </div>
-      <div class="field">
-        <label for="msg">Message</label>
-        <textarea class="input" id="msg" rows="3"></textarea>
+    </section>
+
+    <section class="stack scale">
+      <h2>Type</h2>
+      <p>Bricolage Grotesque for headings, Figtree for reading. Headings run tight; body text keeps a 62 character
+        measure.</p>
+      <h1 style="font-size:clamp(2.5rem,7vw,4.5rem)">Heading one</h1>
+      <h2>Heading two</h2>
+      <h3>Heading three</h3>
+      <p>Body text sits at 1.0625rem with a 1.6 line height. <a href="#">Links</a> keep a thin underline that thickens
+        on hover.</p>
+    </section>
+
+    <section class="stack">
+      <h2>Buttons and tags</h2>
+      <div class="demo">
+        <button class="btn">Save changes</button>
+        <button class="btn btn--ghost">Cancel</button>
+        <button class="btn" disabled>Unavailable</button>
       </div>
-      <button class="btn">Send message</button>
-    </div>
-  </section>
+      <div class="demo">
+        <span class="tag">Default</span>
+        <span class="tag tag--live">Live</span>
+      </div>
+    </section>
 
-  <section class="stack">
-    <h2>Callout and tide table</h2>
-    <div class="callout"><strong>Heads up.</strong> Use a callout for one thing the reader shouldn't miss.</div>
-    <table class="tt">
-      <thead><tr><th scope="col">Component</th><th scope="col">Class</th><th scope="col">Status</th></tr></thead>
-      <tbody>
-        <tr><td class="name"><a href="#">Button</a></td><td><code>.btn</code></td><td><span class="tag tag--live">Stable</span></td></tr>
-        <tr><td class="name"><a href="#">Panel</a></td><td><code>.panel</code></td><td><span class="tag tag--live">Stable</span></td></tr>
-        <tr><td class="name"><a href="#">Waves</a></td><td><code>.waves</code></td><td><span class="tag">Experimental</span></td></tr>
-      </tbody>
-    </table>
-  </section>
-</main>
+    <section class="stack">
+      <h2>Forms</h2>
+      <div class="panel" style="max-width:32rem">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input class="input" id="email" type="email" placeholder="you@example.com">
+          <span class="hint">We only use this to reply to you.</span>
+        </div>
+        <div class="field">
+          <label for="msg">Message</label>
+          <textarea class="input" id="msg" rows="3"></textarea>
+        </div>
+        <button class="btn">Send message</button>
+      </div>
+    </section>
 
-<footer class="footer" style="margin-top:var(--s6)"><div class="wrap"><a href="index.html">Back to the portfolio</a></div></footer>
+    <section class="stack">
+      <h2>Callout and tide table</h2>
+      <div class="callout"><strong>Heads up.</strong> Use a callout for one thing the reader shouldn't miss.</div>
+      <table class="tt">
+        <thead>
+          <tr>
+            <th scope="col">Component</th>
+            <th scope="col">Class</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name"><a href="#">Button</a></td>
+            <td><code>.btn</code></td>
+            <td><span class="tag tag--live">Stable</span></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="#">Panel</a></td>
+            <td><code>.panel</code></td>
+            <td><span class="tag tag--live">Stable</span></td>
+          </tr>
+          <tr>
+            <td class="name"><a href="#">Waves</a></td>
+            <td><code>.waves</code></td>
+            <td><span class="tag">Experimental</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer" style="margin-top:var(--s6)">
+    <div class="wrap"><a href="index.html">Back to the portfolio</a></div>
+  </footer>
 </body>
+
 </html>
